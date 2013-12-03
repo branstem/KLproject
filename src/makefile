@@ -15,7 +15,7 @@
 CC=g++
 CFLAGS=-g -Wall
 TARGET=project
-SOURCES=$(TARGET).cpp
+SOURCES=$(TARGET).cpp 
 EXECUTABLE=$(TARGET)
 
 $(EXECUTABLE): 
