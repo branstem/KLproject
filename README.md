@@ -1,7 +1,7 @@
 KLproject
 =========
 
-School Project to demonstrate KL Algorithm partitioning vertices in an adjacency matrix.
+ECE428 Project to demonstrate KL Algorithm partitioning vertices in an adjacency matrix.
 
 Copyright and Licensing Information
 ===================================
