@@ -4,52 +4,19 @@
  *
  *	Description:	This project demonstrates the Kernighan-Lin
  *	algorithm to partition the set V of vertices into {A,B} 
- * 	partitions.  
- *
- *	Kernighan-Lin Algorithm:
- *
- * 	Step 1:
- *	Open text file and read in vertices and edges to Adjacency
- *	Matrix. 
- *	Create initial Partitions {A, B} such that A and B 
- *	are equal-sized subsets of V with no overlap and their 
- *	union covering all of V.
- *
- *	Step 2
- * 	Compute D values for all vertices.
- *	Formula: 	( Di = Ei - Ii )
- *	Iteration = 1;
- *	A' = A;
- *	B' = B;
- *
- *	Step 3
- *	Compute gi values.  
- *	Formula:	( gi = Dai + Dbi - 2caibi )
- *	Choose ai from A' and bi from B' which represents the 
- *	maximum calculated gi.
- *	Add pair (ai, bi) and corresponding gain to que.
- *	Remove ai from A' and bi from B'
- *
- *	Step 4
- *	If A' and B' are not empty, update Di values for
- *	all vertices in A' and B'.
- *	Increment Iteration.
- * 	Goto Step 3. 
- *	Else Goto Step 5.
- *
- *	Step 5
- *	Find k to maximize the partial sum of gi from i to k in the queue.
- *	If G > 0 then swap corresponding 'a' value from partition A to 
- *	partition B. Then swap corresponding 'b' value from partition B to
- *	partition A. 
- *	Goto Step 2
- *  Else display iterations and corresponding {A,B} partitions including
- *	cost. 
+ * 	partitions. A text file containing the information to 
+ *	build the adjacency matrix is opened. A function getMatrix(),
+ *	is called to read in information from file and store in 
+ *	adjacency matrix. Then the initial partitions are created
+ *	and the partitioning algorithm is performed. The results 
+ *	of the algorithm are then printed out and the file is
+ *	closed. Program then ends.
+ * 
  */
  
 #include <iostream>
 #include <fstream>
-#include <sstream>
+#include <sstream>.
 #include <string>
 #include <vector>
 #include <cstdlib>

@@ -17,5 +17,4 @@ void KLpartition::initPartition()
 	if( unevenA == true ) partA[ numVertices - 1 ] = -1;
 	A.push_back( partA );
 	B.push_back( partB );
-	
 }

@@ -1,6 +1,43 @@
 /*	Author:	Matthew Branstetter
  *	Title:	KLpartition.h
  *	Date:	11/21/2013
+ *
+ *	Kernighan-Lin Algorithm:
+ *
+ *	Step 1:
+ *		Create initial Partitions {A, B} such that A and B 
+ *		are equal-sized subsets of V with no overlap and their 
+ *		union covering all of V.
+ *
+ *	Step 2:
+ *		Compute D values for all vertices.
+ *			Formula: 	( Di = Ei - Ii )
+ *		Set iteration to 1.
+ *		Copy all of A into A', A' = A.
+ *		Copy all of B into B', B' = B.
+ *
+ *	Step 3:
+ *		Compute gi values.  
+ *			Formula:	( gi = Dai + Dbi - 2caibi )
+ *		Choose ai from A' and bi from B' which represents the 
+ *		maximum calculated gi.
+ *		Add pair (ai, bi) and corresponding gain to que.
+ *		Remove ai from A' and bi from B'.
+ *
+ *	Step 4:
+ *		If A' and B' are not empty, update Di values for
+ *		all vertices in A' and B'.
+ *		Increment Iteration.
+ *		Goto Step 3. 
+ *		Else Goto Step 5.
+ *
+ *	Step 5:
+ *		Find k to maximize the partial sum of gi from i to k in the queue.
+ *		If G > 0 then swap corresponding 'a' value from partition A to 
+ *		partition B, and corresponding 'b' value from partition B to
+ *		partition A. 
+ *		Goto Step 2.
+ *		Else Stop.
  */
  
 #include <partition.h>
@@ -14,8 +51,7 @@
 #include <max.h>
 #include <lastVertex.h>
 
-
-struct kSwap
+struct node
 {
 	int gain;
 	int a;
@@ -32,8 +68,8 @@ class KLpartition{
 		vector<vector<int> > A;			//	Matrix with each Partition 1 array
 		vector<vector<int> > B;			//	Matrix with each Partition 2 array
 		vector<int> dValues;			//	Array to store D values
-		vector<kSwap> gValues;			//	Array to store gain values
-		vector<kSwap> G;				//	Array to store G values for each k (swap step)
+		vector<node> gValues;			//	Array to store gain values
+		vector<node> G;				//	Array to store G values for each k (swap step)
 		
 		void initPartition();
 		void printPartition( vector<int>& part );
@@ -71,4 +107,3 @@ KLpartition::KLpartition( int a, vector<vector<int> >& adjacencyMatrix )
 	matrix = adjacencyMatrix;
 	dValues.resize( a , 0 );
 }
-
