@@ -1,4 +1,4 @@
-KLproject
+﻿KLproject
 =========
 
 ECE428 Project to demonstrate KL Algorithm partitioning vertices in an adjacency matrix.
@@ -47,11 +47,15 @@ File Manifest
 The files included in project build are:
 
 1.	project.cpp
-2.	kl.txt
-3.	kl2.txt
+2.	KLpartition.h
+3.	KLpartition.cpp
+4.	kl.txt
+5.	kl2.txt
+6.	kl3.txt
+7.	kl4.txt
+8.	kl5.txt
 4.	makefile
 5.	project
-6.	project.o
 
 Compiling
 =========
@@ -61,9 +65,15 @@ provided into a build directory then run the makefile. You can do
 this by doing the following: 
 
 $ mkdir build
+$ cp project /build
 $ cp project.cpp /build
+$ cp KLpartition.h /build
+$ cp KLpartition.cpp /build
 $ cp kl.txt /build
 $ cp kl2.txt /build
+$ cp kl3.txt /build
+$ cp kl4.txt /build
+$ cp kl5.txt /build
 $ cp makefile /build
 $ cp readme.md /build
 $ cd build

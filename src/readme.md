@@ -1,3 +1,8 @@
+﻿KLproject
+=========
+
+ECE428 Project to demonstrate KL Algorithm partitioning vertices in an adjacency matrix.
+
 Copyright and Licensing Information
 ===================================
 Copyright (C) 2013 Matthew Branstetter
