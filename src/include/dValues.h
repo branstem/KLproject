@@ -11,8 +11,6 @@ void KLpartition::getDValues( vector<int>& partA, vector<int>& partB )
 	int value = 0;
 	int pA = -1;
 	int pB = -1;
-	if( unevenA == true ) partA.pop_back();
-	if( unevenB == true ) partB.pop_back();
 	for( int i = 0 ; (unsigned)i < matrix.size() ; i++)
 	{
 		location = i + 1;
@@ -22,22 +20,22 @@ void KLpartition::getDValues( vector<int>& partA, vector<int>& partB )
 		{
 			for( int j = 0 ; (unsigned) j < partB.size() ; j++ )
 			{
-				value = value + matrix[ partA[pA] - 1 ][ partB[j] - 1];
+				if( partB[j] >= 0 ) value = value + matrix[ partA[pA] - 1 ][ partB[j] - 1];
 			}
 			for( int j = 0 ; (unsigned) j < partA.size() ; j++ )
 			{
-				value = value - matrix[ partA[pA] - 1 ][ partA[j] - 1];
+				if( partA[j] >= 0 )value = value - matrix[ partA[pA] - 1 ][ partA[j] - 1];
 			}
 		}
 		else if( pB>= 0 )
 		{
 			for( int j = 0 ; (unsigned) j < partA.size() ; j++ )
 			{
-				value = value + matrix[ partB[pB] - 1 ][ partA[j] - 1];
+				if( partA[j] >= 0 ) value = value + matrix[ partB[pB] - 1 ][ partA[j] - 1];
 			}
 			for( int j = 0 ; (unsigned) j < partB.size() ; j++ )
 			{
-				value = value - matrix[ partB[pB] - 1 ][ partB[j] - 1];
+				if( partB[j] >= 0 ) value = value - matrix[ partB[pB] - 1 ][ partB[j] - 1];
 			}
 		}
 		dValues[i] = value ;
@@ -45,8 +43,6 @@ void KLpartition::getDValues( vector<int>& partA, vector<int>& partB )
 		pB = -1;
 		value = 0;
 	}
-	if( unevenA == true ) partA.push_back( -1 );
-	if( unevenB == true ) partB.push_back( -1 );
 }
 
 void KLpartition::updateDValues( vector<int>& partA, vector<int>& partB , int a , int b )

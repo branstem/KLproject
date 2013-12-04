@@ -15,11 +15,12 @@
 CC=g++
 CFLAGS=-g -Wall
 TARGET=project
-SOURCES=$(TARGET).cpp KLpartition.cpp
+SOURCES=$(TARGET).cpp
+ADDITIONAL SOURCES=KLpartition.cpp
 EXECUTABLE=$(TARGET)
 
 $(EXECUTABLE): 
-	$(CC) $(CFLAGS) $(SOURCES) -o $(EXECUTABLE) 
+	$(CC) $(CFLAGS) $(SOURCES) $(ADDITIONAL SOURCES) -o $(EXECUTABLE) 
  
 clean: 
 	rm -rf *o $(EXECUTABLE)
