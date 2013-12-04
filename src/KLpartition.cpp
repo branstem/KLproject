@@ -1,12 +1,10 @@
 /*	Author:	Matthew Branstetter
- *	Title:	project.cpp
+ *	Title:	KLpartition.cpp
  *	Date:	11/21/2013
- *
- *	Description:	This project demonstrates the Kernighan-Lin
- *	algorithm to partition the set V of vertices into {A,B} 
- * 	partitions.   
  */
- 
+
+using namespace std;
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -15,133 +13,6 @@
 #include <cstdlib>
 #include <algorithm>
 #include "KLpartition.h"
-
-using namespace std;
-
-//	Function reads in a text file to an adjacency matrix
-void getMatrix(ifstream& inF, vector<vector<int> >& matrix, int num);
-
-/* Delete
-
-//	Node to store k step gain and corresponding X and Y values.
-struct kSwap
-{
-	int gain;
-	int a;
-	int b;
-};
-
-class KLpartition{
-	private:
-		int	numVertices;				//	Number of vertices (n) per partition
-		bool unevenA;					//	Odd number of vertices Flag Partition 1
-		bool unevenB;					//	Odd number of vertices Flag Partition 2
-		bool repeat;					//	Continue to partition vertices Flag
-		vector<vector<int> > matrix;	//	Adjacency Matrix
-		vector<vector<int> > A;			//	Matrix with each Partition 1 array
-		vector<vector<int> > B;			//	Matrix with each Partition 2 array
-		vector<int> dValues;			//	Array to store D values
-		vector<kSwap> gValues;			//	Array to store gain values
-		vector<kSwap> G;				//	Array to store G values for each k (swap step)
-		
-		void initPartition();
-		void printPartition( vector<int>& part );
-		void printIteration( int a, int b, vector<int>& partA, vector<int>& partB );
-		void printFinal( vector<int>& partA, vector<int>& partB );
-		void getDValues( vector<int>& partA, vector<int>& partB );
-		void updateDValues( vector<int>& partA, vector<int>& partB , int a , int b );
-		void getGValues( vector<int>& partA, vector<int>& partB );
-		void removeVertices( vector<int>& partA, vector<int>& partB, int a, int b );
-		void swapVertices( vector<int>& partA, vector<int>& partB, int a, int b );
-		int cutSize( vector<int>& partA, vector<int>& partB );
-		int maxG();
-		int maxgValue();
-		int findValue( vector<int>& part , int a );
-		int lastVertex( vector<int> &partA , vector<int> &partB );
-		
-	public:
-		KLpartition( int a, vector<vector<int> >& adjacencyMatrix );
-		void partition();
-		void printResults();
-};
-
- 
- END Delete  */
-
-int main(int argc, char * const argv[])
-{
-	//	Store number of nodes (2n) from file in variable
-	int	numNodes;
-	//	Use default filename
-	const char* filename;
-	//	If user provided file name
-	if(argc > 1)
-		filename = argv[1];
-	//	If not, use default file name
-	else
-		filename = "kl.txt";
-	//	Try to open file with filename	
-	ifstream inFile(filename);
-	//	File open error check
-	if(!inFile.is_open())
-	{
-       //	Notify user file not open and close program
-		cout << "Unable to open file. \nProgram terminating...\n";
-		return 0;
-	}
-	//	File is open
-	else
-	{
-		//	Get number of nodes (2n) from text file
-		string buffer;
-		const char * buffer2;
-		getline(inFile, buffer);
-		buffer2 = buffer.c_str(); 
-		numNodes = atoi(buffer2);
-		//	Create adjacency matrix
-		vector<int> line(numNodes,0);
-		vector<vector<int> > adjMatrix(numNodes, line);
-		//	Fill adjacency matrix with appropriate values
-		getMatrix(inFile,adjMatrix,numNodes);
-		//	Create Initial Partition 
-		KLpartition kl(numNodes, adjMatrix);
-		//	Find the best Partition
-		kl.partition();
-		//	Print Results of KL algorithm
-		kl.printResults();
-	}
-	//	Close open text file
-	inFile.close();
-	//	Close program
-	fclose( stdin );
-	fclose( stdout );
-	fclose( stderr );
-	return(0);
-}
-
-void getMatrix(ifstream& inF, vector<vector<int> >& matrix, int num)
-{
-	string buffer;
-	string location;
-	const char* buffer2;
-	int nodePos;
-	int lineNum = 0;
-	while(getline(inF, buffer))
-	{
-		stringstream line(buffer);
-		string location;
-		getline(line,location,',');
-		while(getline(line,location,','))
-		{
-			buffer2 = location.c_str(); 
-			nodePos = atoi(buffer2) - 1;
-			matrix[lineNum][nodePos]++;
-		} 
-		lineNum++;
-	}
-}
-
-/*  Delete
 
 KLpartition::KLpartition( int a, vector<vector<int> >& adjacencyMatrix )
 {
@@ -430,7 +301,7 @@ void KLpartition::getGValues( vector<int>& partA, vector<int>& partB )
 	int c = 0;
 	int d = 0;
 	int cab = 0;
-	kSwap temp;
+	node temp;
 	if( unevenA == true ) partA.pop_back();
 	if( unevenB == true ) partB.pop_back();
 	int value = 0;
@@ -462,7 +333,7 @@ void KLpartition::partition()
 	int swapA = 0;
 	int swapB = 0;
 	int total = 0;
-	kSwap temp;
+	node temp;
 	temp.gain = 0;
 	temp.a = 0;
 	temp.b = 0;
@@ -516,4 +387,3 @@ void KLpartition::partition()
 	partB.clear();
 }
 
- END Delete */

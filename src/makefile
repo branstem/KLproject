@@ -11,15 +11,15 @@
 #	executable file.
 #	-Wall turns on compiler warnings.
 #
-
+#
 CC=g++
 CFLAGS=-g -Wall
 TARGET=project
-SOURCES=$(TARGET).cpp 
+SOURCES=$(TARGET).cpp KLpartition.cpp
 EXECUTABLE=$(TARGET)
 
 $(EXECUTABLE): 
 	$(CC) $(CFLAGS) $(SOURCES) -o $(EXECUTABLE) 
-
+ 
 clean: 
 	rm -rf *o $(EXECUTABLE)
