@@ -137,6 +137,11 @@ void KLpartition::getDValues( vector<int>& partA, vector<int>& partB )
 		pB = -1;
 		value = 0;
 	}
+	for( int i = 0 ; (unsigned) i < dValues.size() ; i++ )
+	{
+		cout << "D" << i + 1 << " = E - I = " << dValues[i] << endl;
+	}
+	cout << endl;
 }
 
 void KLpartition::updateDValues( vector<int>& partA, vector<int>& partB , int a , int b )
@@ -153,7 +158,9 @@ void KLpartition::updateDValues( vector<int>& partA, vector<int>& partB , int a 
 			else cia = 0;
 			cib = 0;
 			if( b > 0 ) cib = matrix[pos][ b - 1 ];
+			cout << dValues[pos] << " + 2 * " << cia << " - 2 * " << cib << " =";
 			dValues[pos] = dValues[pos] + ( 2 * cia ) - ( 2 * cib );
+			cout << dValues[pos] << endl;
 		}
 	}
 	for( int j = 0 ; (unsigned)j < partB.size() ; j++ )
@@ -166,10 +173,16 @@ void KLpartition::updateDValues( vector<int>& partA, vector<int>& partB , int a 
 			else cia = 0;
 			if( b > 0 ) cib = matrix[pos][ b - 1 ];
 			else cib = 0;
+			cout << dValues[pos] << " + 2 * " << cia << " - 2 * " << cib << " =";
 			dValues[pos] = dValues[pos] + ( 2 * cib ) - ( 2 * cia );
+			cout << dValues[pos] << endl;
 		}
 	}
-	
+	for( int i = 0 ; (unsigned) i < dValues.size() ; i++ )
+	{
+		cout << "D" << i + 1 << "' = D" << i + 1 << " + 2*ci - 2*ci = " << dValues[i] << endl;
+	}
+	cout << endl;
 }
 
 void KLpartition::removeVertices( vector<int>& partA, vector<int>& partB, int a, int b )
@@ -235,7 +248,10 @@ int KLpartition::maxG()
 			max = G[i].gain;
 			location = i;
 		}
+		cout << "k " << i << " = " << G[i].gain << endl;
+		
 	}
+	cout << endl;
 	return location;
 }
 
@@ -269,6 +285,7 @@ int KLpartition::lastVertex( vector<int> &partA , vector<int> &partB )
 {			
 	int a = partA[0];
 	int b = partB[0];
+	cout << "Last vertices to swap are : " << a << " and " << b << endl;
 	int c = 0;
 	int d = 0;
 	int cab = 0;
@@ -290,6 +307,7 @@ int KLpartition::lastVertex( vector<int> &partA , vector<int> &partB )
 		cab = matrix[ a - 1 ][ b - 1 ];
 	}
 	value = c + d - ( 2 * cab );
+	cout << "g" << a << b << " = " << value << endl << endl;
 	return value;
 }
 
@@ -320,8 +338,10 @@ void KLpartition::getGValues( vector<int>& partA, vector<int>& partB )
 			temp.a = a;
 			temp.b = b;
 			gValues.push_back( temp );
+			cout << "g " << temp.a << temp.b << " = " << c << " + " << d << " - 2 * " << cab << " = " << temp.gain << endl;
 		}
 	}
+	cout << endl;
 }
 
 void KLpartition::partition()
@@ -339,24 +359,39 @@ void KLpartition::partition()
 	vector<int> partA;
 	vector<int> partB;
 	// Step 1.
+	cout << "STEP 1. " << endl;
 	initPartition();
 	while( repeat == true ) 
 	{
 		partA = A[location];
 		partB = B[location];
+		cout << "A";
+		printPartition( partA );
+		cout << endl;
+		cout << "B";
+		printPartition( partB );
+		cout << endl << endl;
+		if( unevenA == true ) partA.push_back(-1);
+		if( unevenB == true ) partB.push_back(-1);
 		// Step 2.
+		cout << "STEP 2. " << endl;
 		getDValues( partA , partB );
 		while( partA.size() > 1 )
 		{	
 			// Step 3.
+			cout << "STEP 3. " << endl;
 			getGValues( partA , partB );
 			maxGain = maxgValue();
 			temp = gValues[maxGain];
+			cout << "The max gain is " << temp.gain << " at vertices " << temp.a << " and " << temp.b << endl;
 			total = total + temp.gain;
 			temp.gain = total;
 			G.push_back(temp);
+			cout << "Locking Vertices: " << temp.a << " " << temp.b << endl;
 			removeVertices( partA , partB , temp.a , temp.b );
+			cout << endl;
 			// Step 4.
+			cout << "STEP 4. " << endl;
 			updateDValues( partA , partB , temp.a , temp.b );
 			temp.a = 0;
 			temp.b = 0;
@@ -368,8 +403,11 @@ void KLpartition::partition()
 		temp.a = partA[0];
 		temp.b = partB[0];
 		G.push_back(temp);
+		
 		// Step 5.
+		cout << "STEP 5. " << endl;
 		maxK = maxG();
+		cout << "The maximum G is when k = " << maxK << " and the gain is " << G[maxK].gain << endl << endl;
 		swapA = G[maxK].a;
 		swapB = G[maxK].b;
 		partA.clear();
