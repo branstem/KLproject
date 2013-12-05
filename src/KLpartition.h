@@ -66,12 +66,12 @@ class KLpartition{
 		bool unevenA;					//	Odd number of vertices Flag Partition 1
 		bool unevenB;					//	Odd number of vertices Flag Partition 2
 		bool repeat;					//	Continue to partition vertices Flag
-		vector<vector<int> > matrix;		//	Adjacency Matrix
+		vector<vector<int> > matrix;	//	Adjacency Matrix
 		vector<vector<int> > A;			//	Matrix with each Partition 1 array
 		vector<vector<int> > B;			//	Matrix with each Partition 2 array
-		vector<int> dValues;				//	Array to store D values
+		vector<int> dValues;			//	Array to store D values
 		vector<node> gValues;			//	Array to store gain values
-		vector<node> G;				//	Array to store G values for each k (swap step)
+		vector<node> G;					//	Array to store G values for each k (swap step)
 		
 		void initPartition();
 		void printPartition( vector<int>& part );
